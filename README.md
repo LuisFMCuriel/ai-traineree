@@ -121,6 +121,30 @@ There are other potential things on the roadmap but haven't dedicated to them ye
 
 Should I focus on something specificallly? Let me know by leaving opening a feature request issue or contacting through [ai-traineree@dawid.lasz.uk](mailto:ai-traineree@dawid.lasz.uk).
 
+## Examples
+
+**DQN on CartPole**
+
+This example uses [CartPole-v1](https://gym.openai.com/envs/CartPole-v1/). The CartPole environment consists in a pole attached to cart, which moves along a track. The game is simple, the cart must move either left or right to prevent the pole to fall over. You can modify the number of episodes and the reward goal in the command `env_runner.run` to train for fewer or more episodes until you reach the `reward_goal`.
+
+```
+from ai_traineree.agents.dqn import DQNAgent
+from ai_traineree.runners.env_runner import EnvRunner
+from ai_traineree.tasks import GymTask
+
+task = GymTask('CartPole-v1')
+agent = DQNAgent(task.obs_space, task.action_space, n_steps=5)
+env_runner = EnvRunner(task, agent)
+
+# Learning
+scores = env_runner.run(reward_goal=100, max_episodes=300, force_new=True)
+
+# Check what we have learned by rendering
+env_runner.interact_episode(render=True)
+```
+After a few episodes:
+
+![DQN on CartPole](https://github.com/LuisFMCuriel/ai-traineree/blob/Readme_gif/examples/gifs/CartPole-v1_DQN_e177.gif)
 
 ## Citing project
 
